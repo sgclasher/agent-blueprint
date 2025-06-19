@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agent Blueprint
 
-## Getting Started
+_Agentic AI advisory MVP — Next.js 15 • React 19 • Supabase • OpenAI GPT-4_
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Purpose
+
+Agent Blueprint lets business stakeholders **see exactly how autonomous (“agentic”) AI can deliver quick, high-ROI wins**.  
+A 60-second survey becomes:
+
+1. A ranked list of three low-hanging-fruit AI workflows (title + ROI teaser).  
+2. An interactive React Flow mini-diagram for each workflow.  
+3. A living profile they can edit and regenerate in seconds.
+
+---
+
+## 🚀 Key MVP Features
+
+| Tag | Feature | Status |
+|-----|---------|--------|
+| **F-1** | One-page Survey (6 fields) | ✅ |
+| **F-1b** | Profile Page — view / edit same 6 fields, regenerate dashboard | ✅ |
+| **F-2** | GPT-4 Function-Calling “Opportunity Generator” | ✅ |
+| **F-3** | Supabase Persistence (`profiles`, `blueprints`, `ai_logs`) | ✅ |
+| **F-4** | Results Dashboard + mini React Flow diagrams | ✅ |
+| **F-5** | Magic-link Auth (Supabase) | ✅ |
+| **F-6** | Blueprint List + “New Initiative” button | 🟡 Stretch (Week 5) |
+
+---
+
+## 🏗 Architecture
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend : Next.js 15 · React 19 · Tailwind · ShadCN · React Flow
+API      : Next Server Actions / Edge
+AI Core  : OpenAI GPT-4 (function calling)   ← future hooks: Claude, Gemini
+DB       : Supabase Postgres + pgvector + RLS
+DevFlow  : Cursor AI · .mdc rules · @Docs deep-links
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🗂 Folder Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+TBD - needs to be entered here.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+````
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚙️ Quick Start
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm install
+cp .env.local.example .env.local   # add Supabase + OPENAI keys
+pnpm dev                           # Turbopack on http://localhost:3000
+````
+
+*Optional local DB: `supabase start` (Docker).*
+
+---
+
+## 🧠 Cursor Dev Workflow
+
+1. **Open a file** → `Cmd/Ctrl-K` → describe the change.
+2. Global rule attaches relevant `@Docs` automatically.
+3. Review diff → commit.
+4. Promote stable prompts to scoped `.mdc` rules.
+
+---
+
+## 📚 Docs Strategy
+
+| Source                  | Purpose                                                                                            |
+| ----------------------- | -------------------------------------------------------------------------------------------------- |
+| **Deep-link `@Docs`**   | Next 15 upgrade, React 19, Supabase RLS/pgvector, GPT-4 function calling, React Flow Quickstart, … |
+| **@Web fallback**       | Only if doc not indexed.                                                                           |
+| **MCP server (future)** | Bulk private PDFs & ROI spreadsheets without bloating prompts.                                     |
+
+---
+
+## 🛣 Roadmap (Post-MVP)
+
+* Editable React Flow (drag, save).
+* Claude / Gemini model-routing.
+* CrewAI orchestration + agent chaining.
+* DeepEval CI & Langfuse tracing.
+* Automated survey via research crawlers.
+
+---
+
+## 🤝 Contributing
+
+Fork → create feature branch → commit rule-guided code → PR.
+All PRs must pass RLS + logging smoke test.
+
+---
+
+## 📄 License
+
+MIT (placeholder).
+
+```
