@@ -16,12 +16,12 @@
 3. Run the `supabase_migration.sql` in your Supabase SQL editor
 4. Visit `http://localhost:3000` and test the survey flow!
 
-## Current Task: Await `searchParams` Promise
+## Current Task: Revert to Stable Chat Completions API
 
-- [x] **Refactor `src/app/survey/success/page.tsx`:**
-    - `await` the `searchParams` prop to resolve the promise being passed by Next.js 15/Turbopack.
-    - This will correctly retrieve the URL parameters and resolve the rendering error.
-    - Remove the now-unnecessary `headers()` and `console.log()` calls.
+- [x] **1. Revert AI Generator:** Update `/src/lib/ai/opportunity-generator.ts` to use the stable `openai.chat.completions.create()` method.
+- [x] **2. Revert Prompts:** Update `/src/lib/openai/prompts.ts` to use the `system` prompt format.
+- [x] **3. Revert Tool Schema:** Update `/src/lib/openai/tools.ts` to use the correct schema for the Chat Completions API.
+- [x] **4. Update README:** Modify the `README.md` to reflect the final architecture decision.
 
 ### Overview
 Building an agentic AI advisory MVP that transforms a 60-second business survey into personalized AI workflow opportunities with interactive React Flow diagrams.
@@ -120,3 +120,33 @@ interface Opportunity {
 
 #### API Implementation
 - [ ] Create `/src/app/api/generate-opportunities/route.ts`
+
+### Week 3: Results Dashboard & React Flow (F-4)
+
+#### Results Dashboard Implementation
+- [ ] Create `/src/app/results/page.tsx` - Results dashboard page
+- [ ] Implement logic to fetch and display results from Supabase
+
+#### React Flow Implementation
+- [ ] Create `/src/components/flow/FlowDiagram.tsx` - React Flow component
+- [ ] Implement logic to fetch and display flow data from Supabase
+
+#### Testing Week 3
+- [ ] Test results dashboard functionality
+- [ ] Test React Flow component rendering
+- [ ] Verify data persistence in Supabase
+- [ ] Test error states (network errors, data retrieval issues)
+
+### Week 4: Final Integration and Deployment
+
+#### Final Integration
+- [ ] Integrate all components and services
+- [ ] Test end-to-end flow
+
+#### Deployment
+- [ ] Set up CI/CD pipeline
+- [ ] Deploy to production environment
+
+#### Testing Week 4
+- [ ] Test deployment and production environment
+- [ ] Verify system stability and performance

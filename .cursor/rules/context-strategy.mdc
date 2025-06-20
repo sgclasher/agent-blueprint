@@ -11,7 +11,7 @@ alwaysApply: true
 
 1. Use open/selected code as the primary source of truth.
 2. Attach project rules based on file path.
-3. If missing, or ≥ 2024 API:
+3. If missing, or ≥ 2024 API, or for LLM API features:
    - If reusable → attach @Docs
    - If one-off → attach @Web
    - If private/bulky → query @mcp

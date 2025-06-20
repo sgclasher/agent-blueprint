@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase/client'
 import { surveyFormSchema, type SurveyFormData } from '@/lib/validations/survey'
+import { generateOpportunities } from '@/lib/ai/opportunity-generator'
 
 export async function submitSurvey(data: SurveyFormData) {
   let blueprintId: string | null = null;
@@ -51,7 +52,7 @@ export async function submitSurvey(data: SurveyFormData) {
         challenge: validatedData.challenge,
         systems: validatedData.systems,
         value: validatedData.value,
-        opportunities: null, // Will be populated by AI in Week 2
+        opportunities: null, // Will be populated by AI
       })
       .select('id')
       .single()
@@ -62,6 +63,20 @@ export async function submitSurvey(data: SurveyFormData) {
     }
     
     blueprintId = blueprint.id;
+
+    // 2. Generate AI opportunities
+    const opportunities = await generateOpportunities(validatedData);
+
+    // 3. Update the blueprint with the generated opportunities
+    const { error: updateError } = await supabase
+      .from('blueprints')
+      .update({ opportunities })
+      .eq('id', blueprintId);
+
+    if (updateError) {
+      console.error('Error updating blueprint with opportunities:', updateError);
+      // Even if this fails, we can still redirect. The user can regenerate later.
+    }
     
   } catch (error) {
     console.error('Survey submission error:', error)
@@ -69,9 +84,8 @@ export async function submitSurvey(data: SurveyFormData) {
   }
 
   if (blueprintId) {
-    // For now, redirect to a success page
-    // In Week 2, we'll add AI generation here
     revalidatePath('/survey')
-    redirect(`/survey/success?blueprintId=${blueprintId}`)
+    // Redirect to the new dashboard page, which we'll build in Week 3
+    redirect(`/dashboard/${blueprintId}`)
   }
 } 
