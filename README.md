@@ -107,6 +107,37 @@ pnpm dev                           # Turbopack on http://localhost:3000
 
 ---
 
+## 🧪 Testing
+
+**Comprehensive test suite with 28 passing tests covering Week 1 functionality.**
+
+### Test Coverage
+- ✅ **Form Validation Tests** (19 tests) - Zod schema validation for all survey fields
+- ✅ **Component Tests** (9 tests) - SurveyForm rendering, interactions, and functionality
+- ✅ **Jest + React Testing Library** - Full testing infrastructure for Next.js 15 + React 19
+
+### Available Commands
+```bash
+pnpm test              # Run all tests
+pnpm test:watch        # Run tests in watch mode
+pnpm test:coverage     # Run tests with coverage report
+```
+
+### Test Files
+```
+src/
+├── __tests__/
+│   └── setup.ts                           # Test environment setup
+├── components/survey/__tests__/
+│   └── SurveyForm.test.tsx               # Component tests
+├── lib/validations/__tests__/
+│   └── survey.test.ts                    # Validation tests
+├── test-utils.tsx                        # Testing utilities
+└── jest.config.js                       # Jest configuration
+```
+
+---
+
 ## 🧠 Cursor Dev Workflow
 
 1. **Open a file** → `Cmd/Ctrl-K` → describe the change.
