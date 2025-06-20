@@ -34,19 +34,18 @@ interface SurveyFormProps {
 export function SurveyForm({ onSubmit }: SurveyFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedSystems, setSelectedSystems] = useState<string[]>([
-    'CRM (Salesforce, HubSpot)', 
     'Document Management', 
-    'Project Management (Asana, Monday)'
+    'ERP (SAP, Oracle)'
   ])
 
   const form = useForm<SurveyFormData>({
     resolver: zodResolver(surveyFormSchema),
     defaultValues: {
-      email: 'test@company.com',
-      initiative: 'RFP Procurement Process Automation',
-      challenge: 'Our procurement team spends 15-20 hours per week manually processing RFP responses, extracting key information, and comparing vendor proposals. This creates bottlenecks in our vendor selection process and delays project timelines by an average of 2-3 weeks.',
-      systems: ['CRM (Salesforce, HubSpot)', 'Document Management', 'Project Management (Asana, Monday)'],
-      value: 'Reduce RFP processing time by 75% (from 20 hours to 5 hours per week), accelerate vendor selection by 2 weeks, and improve proposal comparison accuracy by standardizing data extraction',
+      email: 'test@example.com',
+      initiative: 'Streamline RFP Procurement Process',
+      challenge: 'Our current RFP process is manual, slow, and opaque. It involves emailing Word documents, manually tracking vendor responses in spreadsheets, and lacks a centralized system for evaluation. This leads to version control issues, missed deadlines, and difficulty in comparing proposals fairly.',
+      systems: ['Document Management', 'ERP (SAP, Oracle)'],
+      value: 'Reduce procurement cycle time by 40%, decrease manual effort by 15 hours/week per procurement manager, and improve vendor selection transparency and auditability.',
       contactPreference: 'email'
     }
   })

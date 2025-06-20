@@ -46,10 +46,52 @@ DevFlow  : Cursor AI · .mdc rules · @Docs deep-links
 ## 🗂 Folder Structure
 
 ```
+src
+├── app/
+│   ├── (pages)/
+│   │   ├── survey/
+│   │   │   ├── page.tsx
+│   │   │   └── success/page.tsx
+│   │   └── page.tsx (landing)
+│   ├── actions/
+│   │   └── survey.ts         (Server Action)
+│   ├── layout.tsx            (Root Layout)
+│   └── globals.css
+├── components/
+│   ├── survey/
+│   │   └── SurveyForm.tsx
+│   └── ui/
+│       ├── button.tsx
+│       └── ... (ShadCN components)
+└── lib/
+    ├── supabase/
+    │   ├── client.ts
+    │   └── types.ts
+    └── validations/
+        └── survey.ts
+```
 
-TBD - needs to be entered here.
+---
 
-````
+## 💡 Developer Notes & Troubleshooting
+
+**⚠️ This project runs on Next.js 15 + Turbopack, which is highly experimental.**
+
+Standard Next.js documentation may not always apply. We encountered and fixed a critical bug where the `searchParams` prop on Server Components was passed as a `Promise` instead of an object.
+
+**Troubleshooting Steps:**
+
+1.  **Trust `console.log` over documentation.** When a feature behaves unexpectedly, the first step is to log the raw values being passed to your component (e.g., `console.log(searchParams)`). This was the key to discovering the `Promise` issue.
+2.  **The Fix:** If you encounter this `searchParams` issue, the solution is to `await` the prop directly in your `async` component:
+    ```typescript
+    // app/survey/success/page.tsx
+    export default async function SuccessPage({ searchParams: searchParamsPromise }) {
+      const searchParams = await searchParamsPromise;
+      const { blueprintId } = searchParams;
+      // ...
+    }
+    ```
+3.  **Stability vs. Features:** For maximum stability, you can revert to the stable Webpack bundler by running `pnpm dev` with `next dev` instead of `next dev --turbopack` in your `package.json`. However, for now, we have resolved the major known issue with Turbopack.
 
 ---
 
@@ -59,7 +101,7 @@ TBD - needs to be entered here.
 pnpm install
 cp .env.local.example .env.local   # add Supabase + OPENAI keys
 pnpm dev                           # Turbopack on http://localhost:3000
-````
+```
 
 *Optional local DB: `supabase start` (Docker).*
 

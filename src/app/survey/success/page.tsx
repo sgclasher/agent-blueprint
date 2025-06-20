@@ -9,7 +9,8 @@ interface SuccessPageProps {
   }
 }
 
-export default function SuccessPage({ searchParams }: SuccessPageProps) {
+export default async function SuccessPage({ searchParams: searchParamsPromise }: SuccessPageProps) {
+  const searchParams = await searchParamsPromise
   const { blueprintId } = searchParams
 
   return (
